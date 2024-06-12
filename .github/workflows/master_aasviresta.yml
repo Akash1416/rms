@@ -63,4 +63,4 @@ jobs:
           app-name: 'aasviresta'
           slot-name: 'Production'
           package: .
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_E59A29AFCCF74EF282ADF24044105DD3 }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_99F68E6C897B431893CE3213FDEFA41E }}
