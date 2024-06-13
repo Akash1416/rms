@@ -4,7 +4,7 @@
 
 class rms
 {
-	public $base_url = 'http://localhost/rms/';
+	
 	public $connect;
 	public $query;
 	public $statement;
@@ -12,17 +12,20 @@ class rms
 
 	function rms()
 	{
-		$this->connect = new PDO("mysql:host=localhost;dbname=rms", "root", "");
-		if($this->Set_timezone() != '')
-		{
-			date_default_timezone_set($this->Set_timezone());
+		try {
+			$conn = new PDO("sqlsrv:server = tcp:rms1.database.windows.net,1433; Database = rms", "rms1", "{your_password_here}");
+			$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 		}
-
-		$temp_cur = $this->Get_currency_symbol();
-		if($temp_cur != '')
-		{
-			$this->cur = $temp_cur;
+		catch (PDOException $e) {
+			print("Error connecting to SQL Server.");
+			die(print_r($e));
 		}
+		
+		// SQL Server Extension Sample Code:
+		$connectionInfo = array("UID" => "rms1", "pwd" => "{your_password_here}", "Database" => "rms", "LoginTimeout" => 30, "Encrypt" => 1, "TrustServerCertificate" => 0);
+		$serverName = "tcp:rms1.database.windows.net,1433";
+		$conn = sqlsrv_connect($serverName, $connectionInfo);
+		?>
 		session_start();
 	}
 
